@@ -13,6 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CartService cartService;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -24,5 +25,12 @@ public class ProductService {
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Product addToCart(Long id) {
+        Product product = productRepository.findById(id).get();
+        cartService.addToCart(product);
+        return product;
+
     }
 }

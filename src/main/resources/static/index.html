@@ -33,7 +33,26 @@
             <td>
                 <button type="button" class="btn btn-primary" ng-click="showProductInfo(p.id)">Info</button>
                 <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Delete</button>
+                <button type="button" class="btn btn-outline-success" ng-click="addToCart(p.id)">Cart</button>
             </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Корзина</h3>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="p in cart">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td>
+            <td></td>
         </tr>
         </tbody>
     </table>
