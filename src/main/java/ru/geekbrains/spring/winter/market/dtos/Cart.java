@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.winter.market.services;
+package ru.geekbrains.spring.winter.market.dtos;
 
 import lombok.Data;
 import ru.geekbrains.spring.winter.market.entities.Product;
