@@ -17,4 +17,9 @@ public class CartController {
     public List<Product> findAll() {
         return cartService.findAll();
     }
+
+    @PutMapping("/{id}")
+    public void addToCart(@PathVariable Long id) {
+        cartService.addToCart(id);
+    }
 }

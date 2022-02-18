@@ -1,7 +1,6 @@
 package ru.geekbrains.spring.winter.market.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.winter.market.entities.Product;
 import ru.geekbrains.spring.winter.market.repositories.ProductRepository;
@@ -13,7 +12,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-    private final CartService cartService;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -27,10 +25,4 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Product addToCart(Long id) {
-        Product product = productRepository.findById(id).get();
-        cartService.addToCart(product);
-        return product;
-
-    }
 }

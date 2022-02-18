@@ -24,8 +24,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.addToCart = function (productId) {
-            $http.put('http://localhost:8189/winter/api/v1/products/' + productId).then(function (response) {
-                alert(response.data.title);
+            $http.put('http://localhost:8189/winter/api/v1/cart/' + productId).then(function (response) {
                 $scope.loadCart();
             });
         }
