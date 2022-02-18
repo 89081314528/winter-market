@@ -12,12 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartService {
 
-    private List<Product> productList;
-
-    @PostConstruct
-    public void init(){
-        this.productList = new ArrayList<>();
-    }
+    private List<Product> productList = new ArrayList<>();
+//почему лист надо создавать в @PostConstruct, а не в строке 15? Что случится плохого, если создать лист в 15 строке?
+//    @PostConstruct
+//    public void init(){
+//        this.productList = new ArrayList<>();
+//    }
 
     private final ProductService productService;
 
@@ -26,7 +26,8 @@ public class CartService {
         productList.add(product);
     }
 
-    public List<Product> findAll() {
-        return productList;
+    public Cart getCart() {
+        //почему нежелательно возвращать здесь лист продуктов?
+        return new Cart(new ArrayList<>(productList));
     }
 }
