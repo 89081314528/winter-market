@@ -31,4 +31,16 @@ public class CartService {
     public void emptyCart() {
         tempCart.emptyCart();
     }
+
+    public void increaseNumberOfProducts(Long id) {
+        tempCart.increaseNumberOfProducts(id);
+    }
+
+    public void reduceNumberOfProducts(Long id) {
+        tempCart.reduceNumberOfProducts(id);
+    }
+
+    public void deleteProductFromCart(Long id) {
+        tempCart.deleteProductFromCart(id);
+    }
 }

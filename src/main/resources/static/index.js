@@ -35,6 +35,25 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         }
 
+    $scope.deleteProductFromCart = function (productId) {
+            $http.get('http://localhost:8189/winter/api/v1/cart/deleteProductFromCart/' + productId).then(function (response) {
+                $scope.loadCart();
+            });
+        }
+
+
+    $scope.increaseNumberOfProducts = function (productId) {
+                $http.get('http://localhost:8189/winter/api/v1/cart/increaseNumberOfProducts/' + productId).then(function (response) {
+                    $scope.loadCart();
+                });
+            }
+
+    $scope.reduceNumberOfProducts = function (productId) {
+                $http.get('http://localhost:8189/winter/api/v1/cart/reduceNumberOfProducts/' + productId).then(function (response) {
+                    $scope.loadCart();
+                });
+            }
+
     $scope.loadProducts();
     $scope.loadCart();
 });

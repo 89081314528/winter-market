@@ -46,4 +46,27 @@ public class Cart {
         items.clear();
         recalculate();
     }
+
+    public void increaseNumberOfProducts(Long productId) {
+        CartItem current = items.get(productId);
+        current.setQuantity(current.getQuantity() + 1);
+        current.setPrice(current.getQuantity() * current.getPricePerProduct());
+        items.put(productId, current);
+        recalculate();
+    }
+
+    public void reduceNumberOfProducts(Long productId) {
+        CartItem current = items.get(productId);
+        if (current.getQuantity() > 1) {
+            current.setQuantity(current.getQuantity() - 1);
+            current.setPrice(current.getQuantity() * current.getPricePerProduct());
+            items.put(productId, current);
+        }
+        recalculate();
+    }
+
+    public void deleteProductFromCart(Long id) {
+        items.remove(id);
+        recalculate();
+    }
 }

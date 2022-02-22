@@ -28,4 +28,19 @@ public class CartController {
     public Cart getCurrentCart() {
         return cartService.getCurrentCart();
     }
+
+    @GetMapping("/increaseNumberOfProducts/{id}")
+    public void increaseNumberOfProducts(@PathVariable Long id) {
+        cartService.increaseNumberOfProducts(id);
+    }
+
+    @GetMapping("/reduceNumberOfProducts/{id}")
+    public void reduceNumberOfProducts(@PathVariable Long id) {
+        cartService.reduceNumberOfProducts(id);
+    }
+
+    @GetMapping("/deleteProductFromCart/{id}")
+    public void deleteProductFromCart(@PathVariable Long id) {
+        cartService.deleteProductFromCart(id);
+    }
 }
