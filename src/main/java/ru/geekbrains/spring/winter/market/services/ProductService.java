@@ -1,7 +1,6 @@
 package ru.geekbrains.spring.winter.market.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.winter.market.entities.Product;
 import ru.geekbrains.spring.winter.market.repositories.ProductRepository;
@@ -25,4 +24,5 @@ public class ProductService {
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
+
 }
