@@ -1,4 +1,12 @@
-create table products (id bigserial primary key, title varchar(255), price int);
+create table products
+(
+    id bigserial    primary key,
+    title           varchar(255),
+    price           int,
+    created_at      timestamp default current_timestamp,
+    updated_at      timestamp default current_timestamp
+);
+
 insert into products (title, price) values
 ('Milk', 80), ('Bread', 25), ('Cheese', 300);
 
@@ -34,5 +42,27 @@ insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 2);
 
+create table orders
+(
+    id          bigserial primary key,
+    user_id     bigint not null references users (id),
+    total_price int not null,
+    address     varchar(255),
+    phone       varchar(255),
+    created_at  timestamp default current_timestamp,
+    updated_at  timestamp default current_timestamp
+);
+
+create table order_items
+(
+    id                bigserial primary key,
+    product_id        bigint not null references products (id),
+    order_id          bigint not null references orders (id),
+    quantity          int    not null,
+    price_per_product int    not null,
+    price             int    not null,
+    created_at        timestamp default current_timestamp,
+    updated_at        timestamp default current_timestamp
+);
 
 
