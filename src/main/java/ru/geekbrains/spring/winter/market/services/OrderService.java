@@ -25,7 +25,7 @@ public class OrderService {
         List<CartItem> cartItems = cart.getItems();
 
         Order order = new Order();
-        order.setUser(user); // почему не userId?
+        order.setUser(user);
         order.setTotalPrice(cart.getTotalPrice());
 
         List<OrderItem> orderItems = new ArrayList<>();
