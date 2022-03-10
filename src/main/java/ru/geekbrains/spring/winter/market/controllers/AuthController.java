@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.spring.winter.market.dtos.JwtRequest;
 import ru.geekbrains.spring.winter.market.dtos.JwtResponse;
+import ru.geekbrains.spring.winter.market.dtos.StringResponse;
 import ru.geekbrains.spring.winter.market.services.UserService;
 import ru.geekbrains.spring.winter.market.utils.JwtTokenUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,8 +41,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @GetMapping("/secured")
-    public String helloSecurity() {
-        return "Hello";
+    @GetMapping("/auth_check")
+    public StringResponse authCheck(Principal principal) {
+        return new StringResponse(principal.getName());
     }
 }
