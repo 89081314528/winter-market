@@ -61,6 +61,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
         }
 
+    $scope.filterName = function () {
+        var name = $scope.name;
+                $http.get('http://localhost:5555/core/api/v1/products/filterName/' + name).then(function (response) {
+                    $scope.productsList = response.data;
+                });
+            }
 
     $scope.createOrder = function () {
         $http.post('http://localhost:5555/core/api/v1/orders').then(function (response) {

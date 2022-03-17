@@ -29,6 +29,11 @@ public class ProductController {
         return productService.filterPrice(min, max).stream().map(productConverter::entityToDto).collect(Collectors.toList());
     }
 
+    @GetMapping("/filterName/{name}")
+    public List<ProductDto> filterName(@PathVariable String name) {
+        return productService.filterName(name).stream().map(productConverter::entityToDto).collect(Collectors.toList());
+    }
+
     @GetMapping("/{id}")
     public ProductDto findProductById(@PathVariable Long id) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));

@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getByPriceGreaterThanEqualAndPriceLessThanEqual(BigDecimal min, BigDecimal max);
+    List<Product> getByTitleStartingWith(String name);
 
 }

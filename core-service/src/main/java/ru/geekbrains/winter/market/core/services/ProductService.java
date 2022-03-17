@@ -44,4 +44,8 @@ public class ProductService {
     public List<Product> filterPrice(BigDecimal min, BigDecimal max) {
         return productRepository.getByPriceGreaterThanEqualAndPriceLessThanEqual(min, max);
     }
+
+    public List<Product> filterName(String name) {
+        return productRepository.getByTitleStartingWith(name);
+    }
 }
