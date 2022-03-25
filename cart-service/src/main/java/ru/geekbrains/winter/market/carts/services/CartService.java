@@ -1,19 +1,20 @@
 package ru.geekbrains.winter.market.carts.services;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.winter.market.api.ProductDto;
-import ru.geekbrains.winter.market.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.winter.market.carts.model.Cart;
 
 import javax.annotation.PostConstruct;
 
 @Service
-@RequiredArgsConstructor
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private Cart tempCart;
+
+    public CartService(ProductServiceIntegration productServiceIntegration) {
+        this.productServiceIntegration = productServiceIntegration;
+    }
 
     @PostConstruct
     public void init() {
@@ -24,7 +25,8 @@ public class CartService {
         return tempCart;
     }
 
-    public void add(Long productId) {
+    public void add(Long productId) { // в тесте проверить, что productServiceIntegration вызывается один раз
+        // tempCart не инжектится
         ProductDto product = productServiceIntegration.getProductById(productId);
         tempCart.add(product);
     }

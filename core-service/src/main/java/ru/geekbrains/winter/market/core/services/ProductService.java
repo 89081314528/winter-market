@@ -37,6 +37,7 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         Category category = categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         product.setCategory(category);
+        product.setId(productDto.getId());
         productRepository.save(product);
         return product;
     }
