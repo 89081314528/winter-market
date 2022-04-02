@@ -28,9 +28,6 @@ public class CartService {
     }
 
     public void add(Long productId) { // в тесте проверить, что productServiceIntegration вызывается один раз, tempCart не инжектится
-        // в корзине сделать поле с юзером
-        //передать сюда имя пользователя из параметра
-        //по имени пользователя искать корзину. если ее нет создать новую
         ProductDto product = productServiceIntegration.getProductById(productId);
         tempCart.add(product);
     }
