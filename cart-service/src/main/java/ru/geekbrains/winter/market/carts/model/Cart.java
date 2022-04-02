@@ -1,13 +1,13 @@
 package ru.geekbrains.winter.market.carts.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 import ru.geekbrains.winter.market.api.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 @Data
 public class Cart {
     private List<CartItem> items;

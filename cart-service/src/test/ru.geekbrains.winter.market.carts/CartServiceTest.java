@@ -1,8 +1,6 @@
 package ru.geekbrains.winter.market.carts;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,18 +14,21 @@ import java.math.BigDecimal;
 
 @SpringBootTest
 public class CartServiceTest {
-    @Autowired
+    @Autowired // присваивается ссылка на бин из контекста
     private CartService cartService;
     @MockBean
     private ProductServiceIntegration productServiceIntegration;
-    @MockBean
+    @MockBean // находится в контексте
     private Cart tempCart;
 
-//    @Test
-//    void removeTest() {
-//        cartService.remove(1L);
-//        Mockito.verify(tempCart, Mockito.times(1)).remove(1L);
-//    }
+    @Test
+    void removeTest() {
+        cartService.remove(1L);
+        Mockito.verify(tempCart, Mockito.times(1)).remove(1L);
+        //здесь вызывается tempCart из контекста, а когда мы у карт сервис вызываем remove,
+        // то вызывается tempCart из класса
+        // вызвать метод add убедиться что продукт добавлен, вызвать метод remove и убедиться что продукт удалился
+    }
 
     @Test
     void addTest() {
