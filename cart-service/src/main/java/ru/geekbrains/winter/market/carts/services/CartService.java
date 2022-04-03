@@ -8,25 +8,41 @@ import ru.geekbrains.winter.market.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.winter.market.carts.model.Cart;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private Cart tempCart;
+    private HashMap<String, Cart> userCarts;
 
     @PostConstruct
     public void init() {
         tempCart = new Cart();
     }
 
-    public Cart getCurrentCart() {
-        return tempCart;
+    public Cart getCurrentCart(String userName) {
+        if(userName.equals("noName")) {
+            return tempCart;
+        } else {
+            return userCarts.get(userName);
+        }
     }
 
-    public void add(Long productId) {
+    public void add(Long productId, String userName) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        tempCart.add(product);
+        if(userName.equals("noName")) {
+            tempCart.add(product);
+        } else if (userCarts.containsKey(userName)) {
+            Cart userCart= userCarts.get(userName);
+            userCart.add(product);
+            userCarts.put(userName,userCart);
+        } else {
+            Cart userCart = new Cart();
+            userCart.add(product);
+            userCarts.put(userName,userCart);
+        }
     }
 
     public void remove(Long productId) {

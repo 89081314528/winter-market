@@ -15,8 +15,15 @@ public class CartController {
     private final CartConverter cartConverter;
 
     @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cartService.add(id);
+    public void addToCart(@PathVariable Long id, @RequestParam(defaultValue = "noName", name = "userName")
+            String userName) {
+        cartService.add(id, userName);
+    }
+
+    @GetMapping
+    public CartDto getCurrentCart(@RequestParam(defaultValue = "noName", name = "userName")
+                                          String userName) {
+        return cartConverter.entityToDto(cartService.getCurrentCart(userName));
     }
 
     @GetMapping("/clear")
@@ -29,8 +36,4 @@ public class CartController {
         cartService.remove(id);
     }
 
-    @GetMapping
-    public CartDto getCurrentCart() {
-        return cartConverter.entityToDto(cartService.getCurrentCart());
-    }
 }
