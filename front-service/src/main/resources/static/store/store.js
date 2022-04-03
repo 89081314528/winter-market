@@ -15,9 +15,16 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     }
 
     $scope.addToCart = function (productId) {
-        $http.get(cartContextPath + 'api/v1/cart/add/' + productId).then(function (response) {
+    if ($localStorage.winterMarketUser == null) {
+    $http.get(cartContextPath + 'api/v1/cart/add/' + productId).then(function (response) {
+//                $scope.loadCart();
+            });
+    } else {
+        $http.get(cartContextPath + 'api/v1/cart/add/' + productId,
+         {params: {'userName': $localStorage.winterMarketUser.username}} ).then(function (response) {
             $scope.loadCart();
-        });
+            });
+        }
     }
 
     $scope.loadProducts();

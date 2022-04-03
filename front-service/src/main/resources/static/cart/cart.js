@@ -3,15 +3,27 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     const coreContextPath = 'http://localhost:5555/core/';
 
     $scope.loadCart = function () {
-        $http.get(contextPath + 'api/v1/cart').then(function (response) {
+    if ($localStorage.winterMarketUser == null) {
+    $http.get(contextPath + 'api/v1/cart').then(function (response) {
+                $scope.cart = response.data;
+            });
+    } else {
+        $http.get(contextPath + 'api/v1/cart', {params: {'userName': $localStorage.winterMarketUser.username}}).then(function (response) {
             $scope.cart = response.data;
-        });
+            });
+        }
     }
 
     $scope.clearCart = function () {
+    if ($localStorage.winterMarketUser == null) {
         $http.get(contextPath + 'api/v1/cart/clear').then(function (response) {
             $scope.loadCart();
         });
+        } else {
+        $http.get(contextPath + 'api/v1/cart/clear', {params: {'userName': $localStorage.winterMarketUser.username}}).then(function (response) {
+                    $scope.loadCart();
+                });
+        }
     }
 
     $scope.removeFromCart = function (productId) {
