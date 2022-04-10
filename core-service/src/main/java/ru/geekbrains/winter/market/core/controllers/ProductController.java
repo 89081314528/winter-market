@@ -46,7 +46,7 @@ public class ProductController {
             @RequestParam(required = false, name = "max_price") @Parameter(description = "Максимальная цена", required = false)
                     Integer maxPrice,
             @RequestParam(required = false, name = "title") @Parameter(description = "Название/часть названия продукта", required = false)String title,
-            @RequestParam(defaultValue = "1", name = "p") @Parameter(description = "Номер страницы", required = true)
+            @RequestParam(defaultValue = "1", name = "p") @Parameter(description = "Номер страницы", required = false)
                     Integer page
     ) {
         if (page < 1) {
