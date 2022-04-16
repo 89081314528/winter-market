@@ -13,13 +13,16 @@ public class RoleController {
 
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String role) {
-        System.out.println("метод вызван");
+        System.out.println("начал выполняться метод админ");
         if (role == null) {
-            throw new RuntimeException();
+            System.out.println("ошибка роль равна null");
+            throw new RuntimeException("ошибка роль равна null");
         } else if (role.equals("admin")) {
+            System.out.println("роль админ");
             return "{\"value\" : \"admin\"}";
         } else {
-            throw new RuntimeException();
+            System.out.println("ошибка роль не админ");
+            throw new RuntimeException("ошибка роль не админ");
         }
     }
 }
