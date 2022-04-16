@@ -58,6 +58,11 @@
 })();
 
 angular.module('market').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+        $scope.mergeCart = function () {
+                $http.get('http://localhost:5555/cart/' + 'api/v1/cart/' + $localStorage.winterMarketGuestCartId +
+                '/mergeCart').then(function (response) {
+                });
+        }
     $scope.tryToAuth = function () {
         $http.post('http://localhost:5555/auth/auth', $scope.user)
             .then(function successCallback(response) {
@@ -69,6 +74,7 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
                     $scope.user.password = null;
 
                     $location.path('/');
+                    $scope.mergeCart();
                 }
             }, function errorCallback(response) {
             });

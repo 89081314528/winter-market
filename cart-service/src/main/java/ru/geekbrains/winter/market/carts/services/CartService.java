@@ -8,9 +8,11 @@ import ru.geekbrains.winter.market.api.ProductDto;
 import ru.geekbrains.winter.market.api.ResourceNotFoundException;
 import ru.geekbrains.winter.market.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.winter.market.carts.model.Cart;
+import ru.geekbrains.winter.market.carts.model.CartItem;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -31,7 +33,22 @@ public class CartService {
         return (Cart)redisTemplate.opsForValue().get(targetUuid);
     }
 
+//    public void add(String uuid, Long productId) {
+//        ProductDto product = productServiceIntegration.getProductById(productId);
+//        execute(uuid, cart -> cart.add(product));
+//    }
+
     public void add(String uuid, Long productId) {
+        Cart currentCart = getCurrentCart(uuid);
+        List<CartItem> cartItems = currentCart.getItems();
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getProductId().equals(productId)) {
+                cartItem.changeQuantity(1);
+                currentCart.setItems(cartItems);
+                redisTemplate.opsForValue().set(cartPrefix + uuid, currentCart);
+                return;
+            }
+        }
         ProductDto product = productServiceIntegration.getProductById(productId);
         execute(uuid, cart -> cart.add(product));
     }
