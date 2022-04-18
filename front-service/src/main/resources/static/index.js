@@ -67,9 +67,13 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
         $http.post('http://localhost:5555/auth/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
+                    console.log(response.data);
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.winterMarketUser = {username: $scope.user.username, token: response.data.token};
-
+                let jwt = $localStorage.winterMarketUser.token;
+                let payload = JSON.parse(atob(jwt.split('.')[1]));
+                console.log(payload);
+                $localStorage.winterMarketUser.roles = payload.roles;
                     $scope.user.username = null;
                     $scope.user.password = null;
 
@@ -81,8 +85,8 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
     };
 
    $rootScope.admin = function () {
-       alert("!!!!!!!!!!");
-       $http.get('http://localhost:5555/core/api/v1/roles/admin?role=admin')
+       $http.defaults.headers.common.roles = $localStorage.winterMarketUser.roles;
+       $http.get('http://localhost:5555/core/api/v1/roles/admin')
                    .then(function successCallback(response) {
                        alert("success");
                    }, function errorCallback(response) {

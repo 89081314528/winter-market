@@ -1,10 +1,9 @@
 package ru.geekbrains.winter.market.core.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/roles")
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleController {
 
     @GetMapping("/admin")
-    public String admin(@RequestParam(required = false) String role) {
+    public String admin(@RequestHeader(name = "roles", required = false) List<String> role) {
         System.out.println("начал выполняться метод админ");
         if (role == null) {
             System.out.println("ошибка роль равна null");
             throw new RuntimeException("ошибка роль равна null");
-        } else if (role.equals("admin")) {
+        } else if (role.contains("ROLE_ADMIN")) {
             System.out.println("роль админ");
             return "{\"value\" : \"admin\"}";
         } else {
